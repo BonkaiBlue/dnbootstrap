@@ -123,6 +123,6 @@ public class MainActivity extends Activity implements SoftInputCallback, LayoutE
         GLFW.sendKeyEvent(KeyCodes.GLFW_KEY_ESCAPE, 0, 0);
     }
 
-    public static native void runDotnet(String dotnetRoot, String vsDir);
+    public static native void runDotnet(String dotnetRoot, String vsDir, String nativeLibDir);
     public static native void updateDisplayProperties(int width, int height, int display_hz);
 }
