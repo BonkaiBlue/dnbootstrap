@@ -51,11 +51,13 @@ static int dnb_find_hostfxr(const char* dotnet_root, char_t path_buf[PATH_MAX]) 
     return result;
 }
 
-static void dnb_run_v2(void* hostfxr_ptr, const char* dotnetRoot) {
+static void dnb_run_v2(void* hostfxr_ptr, const char* dotnetRoot, const char* nativeLibDir) {
     hostfxr_main_startupinfo_fn main_startupinfo_fn = dlsym(hostfxr_ptr, "hostfxr_main_startupinfo");
     //setenv("MONO_ENV_OPTIONS", "--trace=T:Vintagestory.Client.NoObf.ShaderProgramFinal", true);
     //setenv("MONO_ENV_OPTIONS", "--interpreter", true);
-    setenv("LIBGL_EGL", "libEGL_angle.so", true);
+    char eglPath[PATH_MAX];
+    snprintf(eglPath, PATH_MAX, "%s/%s", nativeLibDir, "libEGL_angle.so");
+    setenv("LIBGL_EGL", eglPath, true);
     char hostPath[PATH_MAX];
     snprintf(hostPath, PATH_MAX, "%s/%s", dotnetRoot, "dotnet");
     char appPath[PATH_MAX];
@@ -81,7 +83,7 @@ __attribute((used)) void dnb_main(JavaVM *vm, jobject instance) {
 
 JNIEXPORT void JNICALL
 Java_git_artdeell_dnbootstrap_MainActivity_runDotnet(JNIEnv *env, jobject thiz,
-                                                     jstring dotnetRoot, jstring vsDir) {
+                                                     jstring dotnetRoot, jstring vsDir, jstring nativeLibDir) {
 
     init_logger();
 
@@ -96,8 +98,10 @@ Java_git_artdeell_dnbootstrap_MainActivity_runDotnet(JNIEnv *env, jobject thiz,
     void* hostfxr_ptr = dlopen(path_buf, RTLD_NOW);
 
     const char* vs_dir = (*env)->GetStringUTFChars(env, vsDir, NULL);
+    const char* native_lib_dir = (*env)->GetStringUTFChars(env, nativeLibDir, NULL);
     chdir(vs_dir);
     (*env)->ReleaseStringUTFChars(env, vsDir, vs_dir);
 
-    dnb_run_v2(hostfxr_ptr, dotnet_root);
+    dnb_run_v2(hostfxr_ptr, dotnet_root, native_lib_dir);
+    (*env)->ReleaseStringUTFChars(env, nativeLibDir, native_lib_dir);
 }

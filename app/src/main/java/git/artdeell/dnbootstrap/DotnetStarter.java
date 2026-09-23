@@ -41,7 +41,7 @@ public class DotnetStarter {
         symlinkUtil.symlinkLibrary("libopenal.so", "libopenal.so.1");
         symlinkUtil.symlinkLibrary("libcairo.so", "libcairo.so.2");
 
-        MainActivity.runDotnet(appDirs.runtime.getAbsolutePath(), trueVsDir.getAbsolutePath());
+        MainActivity.runDotnet(appDirs.runtime.getAbsolutePath(), trueVsDir.getAbsolutePath(), appNativeDir.getAbsolutePath());
         System.exit(0);
     }
 }
