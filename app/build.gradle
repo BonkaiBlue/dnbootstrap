@@ -8,7 +8,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId "git.artdeell.dnbootstrap"
+        applicationId "git.artdeell.dnbootstrap.patched"
         minSdk 21
         targetSdk 36
         versionCode 1
