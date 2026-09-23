@@ -8,11 +8,11 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId "git.artdeell.dnbootstrap.diag"
+        applicationId "git.artdeell.dnbootstrap.gles"
         minSdk 21
         targetSdk 36
         versionCode 1
-        versionName "1.0-diag"
+        versionName "1.0-gles"
 
         externalNativeBuild {
             cmake {
