@@ -23,7 +23,7 @@
 
 static void init_logger() {
 
-    int logfd = open("/data/data/git.artdeell.dnbootstrap/log.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+    int logfd = open("/data/data/git.artdeell.dnbootstrap.gles/log.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
     if(logfd == -1) {
         LOGI("Failed to set up logger: %s", strerror(errno));
         return;
