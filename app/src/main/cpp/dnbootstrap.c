@@ -57,7 +57,36 @@ static void dnb_run_v2(void* hostfxr_ptr, const char* dotnetRoot, const char* na
     //setenv("MONO_ENV_OPTIONS", "--interpreter", true);
     char eglPath[PATH_MAX];
     snprintf(eglPath, PATH_MAX, "%s/%s", nativeLibDir, "libEGL_angle.so");
-    setenv("LIBGL_EGL", eglPath, true);
+
+    LOGI("ANGLE DIAG: nativeLibDir=%s", nativeLibDir);
+    LOGI("ANGLE DIAG: eglPath=%s", eglPath);
+
+    if(access(eglPath, R_OK) == 0) {
+        LOGI("ANGLE DIAG: libEGL_angle.so exists and is readable");
+    } else {
+        LOGE("ANGLE DIAG: libEGL_angle.so NOT readable: %s", strerror(errno));
+    }
+
+    errno = 0;
+    int envRc = setenv("LIBGL_EGL", eglPath, 1);
+    if(envRc == 0) {
+        LOGI("ANGLE DIAG: setenv LIBGL_EGL SUCCESS");
+    } else {
+        LOGE("ANGLE DIAG: setenv LIBGL_EGL FAILED: %s", strerror(errno));
+    }
+
+    const char* envValue = getenv("LIBGL_EGL");
+    LOGI("ANGLE DIAG: LIBGL_EGL=%s", envValue ? envValue : "<null>");
+
+    void* angleHandle = dlopen(eglPath, RTLD_NOW | RTLD_LOCAL);
+    if(angleHandle != NULL) {
+        LOGI("ANGLE DIAG: direct dlopen(libEGL_angle.so) SUCCESS");
+        dlclose(angleHandle);
+    } else {
+        const char* dlErr = dlerror();
+        LOGE("ANGLE DIAG: direct dlopen(libEGL_angle.so) FAILED: %s",
+             dlErr ? dlErr : "<no dlerror>");
+    }
     char hostPath[PATH_MAX];
     snprintf(hostPath, PATH_MAX, "%s/%s", dotnetRoot, "dotnet");
     char appPath[PATH_MAX];
