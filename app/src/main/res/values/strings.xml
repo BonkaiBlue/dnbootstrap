@@ -34,5 +34,5 @@
     <string name="manage_data_uninstall_everything">Clear all data (WILL DELETE YOUR SAVES)</string>
     <string name="manage_data_share_log_file">Open data directory</string>
     <string name="manage_data_done">Done!</string>
-    <string name="storageProviderAuthorities">git.artdeell.dnbootstrap.gles.gamefiles</string>
+    <string name="storageProviderAuthorities">git.artdeell.dnbootstrap.glesdiag.gamefiles</string>
 </resources>
