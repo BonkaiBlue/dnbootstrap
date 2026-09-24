@@ -23,7 +23,19 @@
 
 static void init_logger() {
 
-    int logfd = open("/data/data/git.artdeell.dnbootstrap.glesdiag/log.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+    const char* home = getenv("HOME");
+    if(home == NULL) {
+        LOGE("Failed to set up logger: HOME is not set");
+        return;
+    }
+
+    char logpath[PATH_MAX];
+    snprintf(logpath, PATH_MAX, "%s", home);
+    char* lastSlash = strrchr(logpath, '/');
+    if(lastSlash != NULL) *lastSlash = '\0';
+    strncat(logpath, "/log.txt", PATH_MAX - strlen(logpath) - 1);
+
+    int logfd = open(logpath, O_CREAT | O_WRONLY | O_TRUNC, 0644);
     if(logfd == -1) {
         LOGI("Failed to set up logger: %s", strerror(errno));
         return;
