@@ -16,6 +16,14 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Checkout LTW PR #36
+        uses: actions/checkout@v4
+        with:
+          repository: whitebelyash/LTW
+          ref: cc8871f81541ffc4e4665c3b04f105d92a7dd2d9
+          path: third_party/LTW
+          fetch-depth: 1
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -23,14 +31,40 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
+      - name: Build LTW PR #36 AAR
+        run: |
+          chmod +x third_party/LTW/gradlew
+          ./third_party/LTW/gradlew -p third_party/LTW :ltw:assembleRelease
+          cp third_party/LTW/ltw/build/outputs/aar/ltw-release.aar app/libs/ltw-release.aar
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
       - name: Build debug APK
         run: ./gradlew assembleDebug
 
-      - name: Upload debug APK
+      - name: Write build summary
+        run: |
+          cat > ARTIFACT_SUMMARY.md <<'EOF'
+          # Vintage Story Android GLES Diagnostic Build
+
+          - Package: `git.artdeell.dnbootstrap.glesdiag`
+          - Vintage Story: `1.21.6 Stable`
+          - Test version: `1.0-depthclear-blur`
+          - ANGLE backend: forced OpenGL ES (`ANGLE_DEFAULT_PLATFORM=gl`)
+          - EGL: absolute `LIBGL_EGL` path to `libEGL_angle.so`
+          - Blur shader: GLES diagnostic override
+          - LTW: PR #36 exact commit `cc8871f81541ffc4e4665c3b04f105d92a7dd2d9`
+          - LTW workaround: `LTW_EMULATE_DEPTHCLEAR=1`
+
+          This build exists specifically to test the LTW depth-clear workaround
+          against the known-working ANGLE/GLES configuration.
+          EOF
+
+      - name: Upload debug APK and test description
         uses: actions/upload-artifact@v4
         with:
-          name: dnbootstrap-debug
-          path: app/build/outputs/apk/debug/*.apk
+          name: dnbootstrap-1.0-depthclear-blur
+          path: |
+            app/build/outputs/apk/debug/*.apk
+            ARTIFACT_SUMMARY.md
