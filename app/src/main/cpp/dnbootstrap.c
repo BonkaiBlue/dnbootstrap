@@ -70,6 +70,7 @@ static void dnb_run_v2(void* hostfxr_ptr, const char* dotnetRoot, const char* na
     char eglPath[PATH_MAX];
     snprintf(eglPath, PATH_MAX, "%s/%s", nativeLibDir, "libEGL_angle.so");
     setenv("ANGLE_DEFAULT_PLATFORM", "gl", true);
+    setenv("LTW_EMULATE_DEPTHCLEAR", "1", true);
     setenv("LIBGL_EGL", eglPath, true);
     char hostPath[PATH_MAX];
     snprintf(hostPath, PATH_MAX, "%s/%s", dotnetRoot, "dotnet");
