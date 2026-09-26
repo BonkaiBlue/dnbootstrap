@@ -65,6 +65,25 @@ Please open an [Issue](../../issues) and include your phone model, Android versi
 
 ## Credits
 
-- [dnbootstrap](https://github.com/VSMobile/dnbootstrap) by VSMobile, the base this project is forked from
-- Vintage Story by Anego Studios
-- Port work by Raven Krystal / Blackfeather Studios
+**Development**
+- **Bonkai Xengetsu (David J. Brown)**: port work, builds, and testing
+  <!-- optional: · Blackfeather Studios -->
+
+**Built on**
+- [dnbootstrap](https://github.com/VSMobile/dnbootstrap) by VSMobile and its contributors: the launcher this project is forked from
+
+**Game**
+- Vintage Story © Anego Studios. The name is used only to describe compatibility. This project is not affiliated with or endorsed by Anego Studios.
+
+**Mods**
+- <!-- Shader fix mod name --> by <!-- author --> (<!-- link -->): sky/terrain rendering fixes
+
+**Tools**
+- [Termux](https://termux.dev): on-device development environment
+- GitHub Actions: APK builds
+
+**AI assistance**
+- Claude (Anthropic), ChatGPT (OpenAI), and NotebookLM (Google) helped with debugging, research, and documentation.
+
+**Testers**
+- <!-- Community testers go here as the compatibility list grows -->
