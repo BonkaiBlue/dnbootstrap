@@ -1,9 +1,11 @@
+diff --git a/src/egl_context.c b/src/egl_context.c
+index 44cc36c8..3b84246f 100644
 --- a/src/egl_context.c
 +++ b/src/egl_context.c
-@@ -606,6 +606,16 @@
-
+@@ -606,6 +606,16 @@ GLFWbool _glfwCreateContextEGL(_GLFWwindow* window,
+ 
      SET_ATTRIB(EGL_CONTEXT_CLIENT_VERSION, ctxconfig->major);
-
+ 
 +    // dnbootstrap Test 7: request OpenGL ES 3.2 so LTW enables its ES 3.2 paths
 +    // (including forcing NEAREST filtering on depth textures). Falls back to
 +    // the tested stable ES 3.1 request if the driver/ANGLE refuses 3.2.
@@ -17,10 +19,10 @@
      if (_glfw.egl.KHR_context_flush_control)
      {
          if (ctxconfig->release == GLFW_RELEASE_BEHAVIOR_NONE)
-@@ -625,6 +635,20 @@
+@@ -625,6 +635,30 @@ GLFWbool _glfwCreateContextEGL(_GLFWwindow* window,
      window->context.egl.handle = eglCreateContext(_glfw.egl.display,
                                                    config, share, attribs);
-
+ 
 +    if (dnbMinorIndex >= 0)
 +    {
 +        if (window->context.egl.handle == EGL_NO_CONTEXT)
