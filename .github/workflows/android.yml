@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - fix/1.21.6-angle
-      - test/es31-context
+      - test/es32-context
   workflow_dispatch:
 
 jobs:
@@ -17,8 +17,8 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Apply Test 6 GLFW patch (request OpenGL ES 3.1)
-        run: git -C app/src/main/cpp/glfw34 apply "$GITHUB_WORKSPACE/patches/glfw-es31-context.patch"
+      - name: Apply Test 7 GLFW patch (request OpenGL ES 3.2)
+        run: git -C app/src/main/cpp/glfw34 apply "$GITHUB_WORKSPACE/patches/glfw-es32-context.patch"
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -36,5 +36,5 @@ jobs:
       - name: Upload debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: dnbootstrap-es31test
+          name: dnbootstrap-es32test
           path: app/build/outputs/apk/debug/*.apk
