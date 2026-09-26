@@ -28,7 +28,7 @@ index 44cc36c8..3b84246f 100644
 +        if (window->context.egl.handle == EGL_NO_CONTEXT)
 +        {
 +            EGLint dnbEglError = eglGetError();
-+            const char* dnbEglVersion = eglQueryString(_glfw.egl.display, EGL_VERSION);
++            const char* dnbEglVersion = eglQueryString(_glfw.egl.display, 0x3054);
 +            const char* dnbEglExtensions = eglQueryString(_glfw.egl.display, EGL_EXTENSIONS);
 +            fprintf(stderr, "dnbootstrap: EGL_VERSION=%s\n",
 +                    dnbEglVersion ? dnbEglVersion : "(null)");
