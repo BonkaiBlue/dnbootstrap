@@ -1,6 +1,6 @@
 # Party-System X Beta
 
-An experimental Android launcher for running **Vintage Story 1.21.6** natively on ARM64 phones, built on a fork of [dnbootstrap](https://github.com/artdeell/dnbootstrap).
+An experimental Android launcher for running **Vintage Story 1.21.6** natively on ARM64 phones, built on a fork of [dnbootstrap](https://github.com/VSMobile/dnbootstrap).
 
 > ⚠️ **Beta.** Expect bugs. This is a fan project and is not affiliated with or endorsed by Anego Studios / the Vintage Story team.
 > **No game files are included.** You must own Vintage Story and supply your own copy.
@@ -65,6 +65,6 @@ Please open an [Issue](../../issues) and include your phone model, Android versi
 
 ## Credits
 
-- [dnbootstrap](https://github.com/artdeell/dnbootstrap) by artdeell, the base this project is forked from
+- [dnbootstrap](https://github.com/VSMobile/dnbootstrap) by VSMobile, the base this project is forked from
 - Vintage Story by Anego Studios
 - Port work by Raven Krystal / Blackfeather Studios
