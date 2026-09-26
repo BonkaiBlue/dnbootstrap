@@ -185,7 +185,7 @@
         -1,
         0
       ],
-      "label": "PRI",
+      "label": "○",
       "layoutParams": {
         "alignmentHorizontal": 0,
         "alignmentVertical": 1,
@@ -207,7 +207,7 @@
         -2,
         0
       ],
-      "label": "SEC",
+      "label": "×",
       "layoutParams": {
         "alignmentHorizontal": 2,
         "alignmentVertical": 1,
@@ -229,7 +229,7 @@
         69,
         0
       ],
-      "label": "Inv",
+      "label": "□",
       "layoutParams": {
         "alignmentHorizontal": 0,
         "alignmentVertical": 3,
@@ -559,7 +559,7 @@
         32,
         0
       ],
-      "label": "JMP",
+      "label": "△",
       "layoutParams": {
         "alignmentHorizontal": 2,
         "alignmentVertical": 3,
