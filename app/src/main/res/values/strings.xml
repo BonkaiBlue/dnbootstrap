@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">dnbootstrap</string>
+    <string name="app_name">VS ES3.1 test</string>
     <string name="error">Error</string>
     <string name="extract_runtime">Unpacking files. Please do not turn off your device</string>
     <string name="require_game_copy">Please download a copy of Vintage Story 1.21.6 from the Client Area and then select it in your file manager using the button below.\n\n This application is EXPERIMENTAL and you may find BUGS or it may NOT WORK FOR YOU AT ALL.</string>
@@ -34,5 +34,5 @@
     <string name="manage_data_uninstall_everything">Clear all data (WILL DELETE YOUR SAVES)</string>
     <string name="manage_data_share_log_file">Open data directory</string>
     <string name="manage_data_done">Done!</string>
-    <string name="storageProviderAuthorities">git.artdeell.dnbootstrap.glesdiag.gamefiles</string>
+    <string name="storageProviderAuthorities">git.artdeell.dnbootstrap.es31test.gamefiles</string>
 </resources>
