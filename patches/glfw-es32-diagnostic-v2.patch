@@ -1,0 +1,50 @@
+--- a/src/egl_context.c
++++ b/src/egl_context.c
+@@ -606,6 +606,16 @@
+
+     SET_ATTRIB(EGL_CONTEXT_CLIENT_VERSION, ctxconfig->major);
+
++    // dnbootstrap Test 7: request OpenGL ES 3.2 so LTW enables its ES 3.2 paths
++    // (including forcing NEAREST filtering on depth textures). Falls back to
++    // the tested stable ES 3.1 request if the driver/ANGLE refuses 3.2.
++    int dnbMinorIndex = -1;
++    if (ctxconfig->major == 3 && _glfw.egl.KHR_create_context)
++    {
++        dnbMinorIndex = index;
++        SET_ATTRIB(EGL_CONTEXT_MINOR_VERSION_KHR, 2);
++    }
++
+     if (_glfw.egl.KHR_context_flush_control)
+     {
+         if (ctxconfig->release == GLFW_RELEASE_BEHAVIOR_NONE)
+@@ -625,6 +635,20 @@
+     window->context.egl.handle = eglCreateContext(_glfw.egl.display,
+                                                   config, share, attribs);
+
++    if (dnbMinorIndex >= 0)
++    {
++        if (window->context.egl.handle == EGL_NO_CONTEXT)
++        {
++            EGLint dnbEglError = eglGetError();
++            const char* dnbEglVersion = eglQueryString(_glfw.egl.display, EGL_VERSION);
++            const char* dnbEglExtensions = eglQueryString(_glfw.egl.display, EGL_EXTENSIONS);
++            fprintf(stderr, "dnbootstrap: EGL_VERSION=%s\n",
++                    dnbEglVersion ? dnbEglVersion : "(null)");
++            fprintf(stderr, "dnbootstrap: EGL_KHR_create_context=%s\n",
++                    _glfw.egl.KHR_create_context ? "yes" : "no");
++            fprintf(stderr, "dnbootstrap: EGL_ERROR=0x%04x (%s)\n",
++                    dnbEglError, getEGLErrorString(dnbEglError));
++            fprintf(stderr, "dnbootstrap: EGL_EXTENSIONS=%s\n",
++                    dnbEglExtensions ? dnbEglExtensions : "(null)");
++            fprintf(stderr, "dnbootstrap: OpenGL ES 3.2 context refused, retrying with 3.1\n");
++            attribs[dnbMinorIndex + 1] = 1;
++            window->context.egl.handle = eglCreateContext(_glfw.egl.display,
++                                                          config, share, attribs);
++        }
++        else
++            fprintf(stderr, "dnbootstrap: OpenGL ES 3.2 context requested and created\n");
++    }
++
+     if (window->context.egl.handle == EGL_NO_CONTEXT)
+     {
+         _glfwInputError(GLFW_VERSION_UNAVAILABLE,
